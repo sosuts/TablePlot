@@ -1,0 +1,29 @@
+﻿<Window x:Class="TablePlots.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TablePlots"
+        Title="Multi Meter Demo"
+        Width="600"
+        Height="300">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!-- メーター 1 -->
+        <local:ValueMeter x:Name="Meter1"
+                          Value="35"
+                          Margin="20" />
+        <!-- メーター 2 -->
+        <local:ValueMeter x:Name="Meter2"
+                          Value="40"
+                          Margin="20"
+                          Grid.Column="1" />
+        <!-- メーター 3 -->
+        <local:ValueMeter x:Name="Meter3"
+                          Value="70"
+                          Margin="20"
+                          Grid.Column="2" />
+    </Grid>
+</Window>
