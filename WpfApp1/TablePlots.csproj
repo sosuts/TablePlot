@@ -57,11 +57,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\RowItem.cs" />
-    <Compile Include="ValueMeter.xaml.cs">
-      <DependentUpon>ValueMeter.xaml</DependentUpon>
+    <Compile Include="Model\RowItem.cs" />
+    <Compile Include="Model\ValueMeterModel.cs" />
+    <Compile Include="ViewModel\ValueMeterViewModel.cs" />
+    <Compile Include="View\Converter\Converter.cs" />
+    <Compile Include="View\ValueMeterView.xaml.cs">
+      <DependentUpon>ValueMeterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,7 +77,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ValueMeter.xaml">
+    <Page Include="View\ValueMeterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

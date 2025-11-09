@@ -50,17 +50,6 @@ namespace TablePlots.ViewModels
         public MainViewModel()
         {
             SelectedIndex = 0;
-
-            // サンプルデータ
-            for (int i = 1; i <= 10; i++)
-                LeftTable.Add(new RowItem { Id = i, Name = "Item " + i, Value = i * 1.1 });
-
-            for (int i = 1; i <= 15; i++)
-                FullTable.Add(new RowItem { Id = i, Name = "Row " + i, Value = i * 2.5 });
-
-            SummaryTable.Add(new RowItem { Id = 1, Name = "Summary A", Value = 123.4 });
-            SummaryTable.Add(new RowItem { Id = 2, Name = "Summary B", Value = 56.7 });
-
             // 転置用サンプル
             var sampleData = new List<Dictionary<string, object>>
             {
