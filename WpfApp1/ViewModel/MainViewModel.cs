@@ -5,16 +5,10 @@ using System.Data;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
+using TablePlots.Models;
 
 namespace TablePlots.ViewModels
 {
-    public class RowItem
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public double Value { get; set; }
-    }
-
     public class MainViewModel : INotifyPropertyChanged
     {
         private int _selectedIndex;
@@ -35,7 +29,7 @@ namespace TablePlots.ViewModels
         public ObservableCollection<RowItem> FullTable { get; } = new ObservableCollection<RowItem>();
         public ObservableCollection<RowItem> SummaryTable { get; } = new ObservableCollection<RowItem>();
 
-        // “]’u•\¦—p
+        // è»¢ç½®è¡¨ç¤ºç”¨
         public DataView TransposedView { get; private set; }
 
         // 2D scatter
@@ -47,34 +41,41 @@ namespace TablePlots.ViewModels
         // Line plot
         public PointCollection LinePoints { get; }
 
+        public ValueMeterViewModel ValueMeter1 { get; set; }
+        public ValueMeterViewModel ValueMeter2 { get; set; }
+
         public MainViewModel()
         {
             SelectedIndex = 0;
-            // “]’u—pƒTƒ“ƒvƒ‹
+
+            ValueMeter1 = new ValueMeterViewModel { Value = 50, GuideLineThickness = 2 };
+            ValueMeter2 = new ValueMeterViewModel { Value = 75, GuideLineThickness = 2 };
+
+            // è»¢ç½®ç”¨ã‚µãƒ³ãƒ—ãƒ«
             var sampleData = new List<Dictionary<string, object>>
             {
                 new Dictionary<string, object>
                 {
                     {"Date", "2025-10-01"},
-                    {"‰·“x", 2},
-                    {"¼“x", 1},
-                    {"”Z“x", 3},
-                    {"ˆ³—Í", 5},
-                    {"”S«", 6}
+                    {"æ¸©åº¦", 2},
+                    {"æ¹¿åº¦", 1},
+                    {"ç…§åº¦", 3},
+                    {"æ°—åœ§", 5},
+                    {"é¨’éŸ³", 6}
                 },
                 new Dictionary<string, object>
                 {
                     {"Date", "2025-10-02"},
-                    {"‰·“x", 3},
-                    {"¼“x", 2},
-                    {"”Z“x", 4},
-                    {"ˆ³—Í", 6},
-                    {"”S«", 7}
+                    {"æ¸©åº¦", 3},
+                    {"æ¹¿åº¦", 2},
+                    {"ç…§åº¦", 4},
+                    {"æ°—åœ§", 6},
+                    {"é¨’éŸ³", 7}
                 }
             };
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
             {
-                // ƒfƒUƒCƒ“—p‚Ìƒ_ƒ~[ƒf[ƒ^
+                // ãƒ‡ã‚¶ã‚¤ãƒ³æ™‚ç”¨ã®ãƒ€ãƒŸãƒ¼ãƒ‡ãƒ¼ã‚¿
                 TransposedView = BuildTransposedFromList(sampleData);
             }
             else
@@ -82,13 +83,13 @@ namespace TablePlots.ViewModels
                 TransposedView = BuildTransposedFromList(sampleData);
             }
 
-            // ‘¼‚ÌƒOƒ‰ƒt—pƒf[ƒ^‰Šú‰»i•K—v‚É‰‚¶‚Äj
+            // ä»–ã®ã‚°ãƒ©ãƒ•ç”¨ãƒ‡ãƒ¼ã‚¿ã‚‚åŒæ§˜ã«ï¼ˆå¿…è¦ã«å¿œã˜ã¦ï¼‰
             ScatterPoints = new PointCollection();
             Points3D = new Point3DCollection();
             LinePoints = new PointCollection();
         }
 
-        // C³: –ß‚è’l‚ÌŒ^‚ğ’Ç‰ÁiDataViewŒ^)
+        // TODO: æˆ»ã‚Šå€¤ã®å‹ã‚’è¿½åŠ ï¼ˆDataViewï¼‰
         private DataView BuildTransposedFromList(List<Dictionary<string, object>> list)
         {
             if (list == null || list.Count == 0) return null;
@@ -106,12 +107,12 @@ namespace TablePlots.ViewModels
             }
 
             var table = new DataTable();
-            table.Columns.Add("€–Ú–¼", typeof(string));
+            table.Columns.Add("é …ç›®", typeof(string));
             int dateIndex = 1;
             foreach (var date in dates)
             {
-                var col = table.Columns.Add($"ÀŒ±“ú{dateIndex}i{date}j", typeof(string));
-                col.Caption = $"ÀŒ±“ú{dateIndex}i{date}j";
+                var col = table.Columns.Add($"æ¸¬å®šå€¤{dateIndex} ({date})", typeof(string));
+                col.Caption = $"æ¸¬å®šå€¤{dateIndex} ({date})";
                 dateIndex++;
             }
 

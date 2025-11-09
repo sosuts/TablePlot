@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using TablePlots.ViewModels;
 
 namespace TablePlots
 {
@@ -8,7 +7,6 @@ namespace TablePlots
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel();
         }
 
     }

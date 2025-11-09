@@ -58,7 +58,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\RowItem.cs" />
-    <Compile Include="Model\ValueMeterModel.cs" />
     <Compile Include="ViewModel\ValueMeterViewModel.cs" />
     <Compile Include="View\Converter\Converter.cs" />
     <Compile Include="View\ValueMeterView.xaml.cs">

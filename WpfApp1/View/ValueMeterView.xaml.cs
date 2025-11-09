@@ -1,43 +1,51 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Media;
 
 namespace TablePlots.View
 {
     public partial class ValueMeter : UserControl
     {
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register("Value", typeof(double), typeof(ValueMeter), new PropertyMetadata(0.0, OnValuePropertyChanged));
+
+        public double Value
+        {
+            get { return (double)GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
+        }
+
+        public static readonly DependencyProperty GuideLineThicknessProperty =
+            DependencyProperty.Register("GuideLineThickness", typeof(double), typeof(ValueMeter), new PropertyMetadata(1.0));
+
+        public double GuideLineThickness
+        {
+            get { return (double)GetValue(GuideLineThicknessProperty); }
+            set { SetValue(GuideLineThicknessProperty, value); }
+        }
+
         public ValueMeter()
         {
             InitializeComponent();
         }
-        public class ValueToBrushConverter : IValueConverter
+
+        private static void OnValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            if (d is ValueMeter meter)
             {
-                if (value is double v)
-                {
-                    return (v > 50)
-                        ? new SolidColorBrush(Color.FromRgb(255, 180, 150))
-                        : new SolidColorBrush(Color.FromRgb(170, 210, 255));
-                }
-                return new SolidColorBrush(Colors.Transparent);
+                meter.UpdateFillHeight();
             }
-
-            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-                => throw new NotImplementedException();
         }
-    }
-    public class RatioConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+
+        private void UpdateFillHeight()
         {
-            if (value is double height && parameter is string ratioStr && double.TryParse(ratioStr, out double ratio))
-                return height * ratio;
-            return 0;
+            double percentage = this.Value / 100.0;
+            FillRect.Height = this.ActualHeight * percentage;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            base.OnRenderSizeChanged(sizeInfo);
+            UpdateFillHeight();
+        }
     }
 }

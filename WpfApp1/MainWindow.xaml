@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TablePlots"
+        xmlns:vm="clr-namespace:TablePlots.ViewModels"
         xmlns:view="clr-namespace:TablePlots.View"
-        xmlns:Converter="clr-namespace:TablePlots.View.Converter"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
         Width="800"
-        d:DataContext="{d:DesignInstance local:MainViewModel, IsDesignTimeCreatable=True}">
+        DataContext="{StaticResource MainViewModel}"
+        d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=True}">
     <DockPanel LastChildFill="True">
         <!-- Top shared menu / toolbar area -->
         <Border DockPanel.Dock="Top"
@@ -118,16 +118,18 @@
                                 </Grid.ColumnDefinitions>
                                 <view:ValueMeter Grid.Row="0"
                                                  Grid.Column="0"
-                                                 Value="50"
+                                                 DataContext="{Binding ValueMeter1}"
+                                                 Value="{Binding Value}"
+                                                 GuideLineThickness="{Binding GuideLineThickness}"
                                                  Width="50"
-                                                 Height="100"
-                                                 GuideLineThickness="2" />
+                                                 Height="100" />
                                 <view:ValueMeter Grid.Row="0"
-                                                       Grid.Column="1"
-                                                       Value="75"
-                                                       Width="50"
-                                                       Height="100"
-                                                       GuideLineThickness="2" />
+                                                 Grid.Column="1"
+                                                 DataContext="{Binding ValueMeter2}"
+                                                 Value="{Binding Value}"
+                                                 GuideLineThickness="{Binding GuideLineThickness}"
+                                                 Width="50"
+                                                 Height="100" />
                             </Grid>
                         </Border>
                     </Grid>
