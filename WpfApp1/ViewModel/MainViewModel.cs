@@ -3,8 +3,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Runtime.CompilerServices;
-using System.Windows.Media;
-using System.Windows.Media.Media3D;
 using TablePlots.Models;
 
 namespace TablePlots.ViewModels
@@ -24,32 +22,21 @@ namespace TablePlots.ViewModels
                 }
             }
         }
-
-        public ObservableCollection<RowItem> LeftTable { get; } = new ObservableCollection<RowItem>();
-        public ObservableCollection<RowItem> FullTable { get; } = new ObservableCollection<RowItem>();
-        public ObservableCollection<RowItem> SummaryTable { get; } = new ObservableCollection<RowItem>();
+        public ObservableCollection<ValueMeterViewModel> ValueMeters { get; set; }
 
         // 転置表示用
         public DataView TransposedView { get; private set; }
-
-        // 2D scatter
-        public PointCollection ScatterPoints { get; }
-
-        // 3D scatter
-        public Point3DCollection Points3D { get; }
-
-        // Line plot
-        public PointCollection LinePoints { get; }
-
-        public ValueMeterViewModel ValueMeter1 { get; set; }
-        public ValueMeterViewModel ValueMeter2 { get; set; }
-
         public MainViewModel()
         {
             SelectedIndex = 0;
-
-            ValueMeter1 = new ValueMeterViewModel { Value = 50, GuideLineThickness = 2 };
-            ValueMeter2 = new ValueMeterViewModel { Value = 75, GuideLineThickness = 2 };
+            ValueMeters = new ObservableCollection<ValueMeterViewModel>()
+            {
+                new ValueMeterViewModel() { Value = 0, GuideLineThickness = 2 },
+                new ValueMeterViewModel() { Value = 25, GuideLineThickness = 2 },
+                new ValueMeterViewModel() { Value = 50, GuideLineThickness = 2 },
+                new ValueMeterViewModel() { Value = 75, GuideLineThickness = 2 },
+                new ValueMeterViewModel() { Value = 100, GuideLineThickness = 2 },
+            };
 
             // 転置用サンプル
             var sampleData = new List<Dictionary<string, object>>
@@ -82,11 +69,6 @@ namespace TablePlots.ViewModels
             {
                 TransposedView = BuildTransposedFromList(sampleData);
             }
-
-            // 他のグラフ用データも同様に（必要に応じて）
-            ScatterPoints = new PointCollection();
-            Points3D = new Point3DCollection();
-            LinePoints = new PointCollection();
         }
 
         // TODO: 戻り値の型を追加（DataView）

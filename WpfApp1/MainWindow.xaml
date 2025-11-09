@@ -101,37 +101,24 @@
                                 </Style.Triggers>
                             </Style>
                         </Grid.Style>
-                        <Border Margin="8"
-                                Background="White">
-                            <Grid HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Stretch"
-                                  Height="Auto">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*" />
-                                    <RowDefinition Height="1*" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="1*" />
-                                </Grid.ColumnDefinitions>
-                                <view:ValueMeter Grid.Row="0"
-                                                 Grid.Column="0"
-                                                 DataContext="{Binding ValueMeter1}"
-                                                 Value="{Binding Value}"
-                                                 GuideLineThickness="{Binding GuideLineThickness}"
-                                                 Width="50"
-                                                 Height="100" />
-                                <view:ValueMeter Grid.Row="0"
-                                                 Grid.Column="1"
-                                                 DataContext="{Binding ValueMeter2}"
-                                                 Value="{Binding Value}"
-                                                 GuideLineThickness="{Binding GuideLineThickness}"
-                                                 Width="50"
-                                                 Height="100" />
-                            </Grid>
-                        </Border>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="8">
+                            <ItemsControl ItemsSource="{Binding ValueMeters}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <view:ValueMeter Value="{Binding Value}"
+                                                         GuideLineThickness="{Binding GuideLineThickness}"
+                                                         Width="50"
+                                                         Height="100" 
+                                                         Margin="5"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
                     </Grid>
                 </Grid>
             </Grid>
